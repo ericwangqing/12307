@@ -1,0 +1,51 @@
+div(ng-include='\'partials/navbar.html\'')
+form#book
+  h3.ui.top.attached.header 列车信息
+    span.small 以下余票信息变化迅速，仅供参考
+  .ui.blue.segment.attached
+    p 2014-02-21（周五）
+      {{ticketTrain['车次']}}次
+      {{ticketTrain['出发站/到达站']}}
+    .ui.horizontal.fitted.divider 
+    p 软卧（￥146.5）5张票 硬卧（￥97.5）有票 硬座（￥46.5）有票 无座（￥46.5）有票
+
+
+  h3.ui.top.attached.header 乘客信息
+    span.small 填写说明
+  
+  table.ui.table.small.blue.segment.attached
+    thead
+      tr
+        th(ng-repeat="name in tableHeaderNames") {{name}}
+    tbody
+      tr(ng-repeat="traveler in travelers")
+        td {{ $index + 1 }}
+        td
+          .field
+            select(ng-model="traveler.seatType", ng-options="type for type in seatTypes")
+        td
+          .field
+            select(ng-model="traveler.ticketType", ng-options="type for type in ticketTypes")
+        td
+          .field
+            input(type='text', ng-model="traveler.name")
+        td
+          .field
+            select(ng-model="traveler.idType", ng-options="type for type in idTypes")
+        td
+          .field
+            input(type='text', ng-model="traveler.id")
+        td
+          .field
+            input(type='text', ng-model="traveler.mobileNumber")
+        td
+          i.remove.icon(ng-click='removeRow($index)')
+  i.add.circular.inverted.blue.icon(ng-click='addRow()')
+
+  .submit.button
+    .ui.grey.submit.large.button(ng-click='query()') 返回上一步
+    .ui.blue.submit.large.button(ng-click='query()') 提交订单
+
+
+
+

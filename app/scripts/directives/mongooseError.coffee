@@ -3,7 +3,7 @@
 ###
 Removes server error when user updates input
 ###
-angular.module('12307FullApp')
+angular.module('12307App')
   .directive 'mongooseError', ->
     restrict: 'A'
     require: 'ngModel'

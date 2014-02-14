@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('12307FullApp')
+angular.module('12307App')
   .controller 'SignupCtrl', ($scope, Auth, $location) ->
     $scope.user = {}
     $scope.errors = {}

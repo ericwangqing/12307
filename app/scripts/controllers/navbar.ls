@@ -1,7 +1,10 @@
 'use strict'
 
-angular.module('12307FullApp')
-.controller 'NavbarCtrl', ($scope, $location, Auth) ->
+preload-trains-data = (Tickets)->
+
+
+angular.module('12307App')
+.controller 'NavbarCtrl', ($scope, $location, Auth, Trains) ->
   $scope.menu = 
     * title: 'Home'
       link: '/'

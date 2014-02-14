@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module '12307FullApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute']
+angular.module '12307App', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute']
 .config ($routeProvider, $locationProvider, $httpProvider) ->
   # $routeProvider! 
   $routeProvider.when '/',
@@ -22,7 +22,10 @@ angular.module '12307FullApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRout
   .when '/tickets',
     templateUrl: 'partials/tickets'
     controller: 'TicketsCtrl'
-  .otherwise redirectTo: '/'
+  .when '/booking',
+    templateUrl: 'partials/booking'
+    controller: 'BookingCtrl'
+  .otherwise templateUrl: '404'
 
   $locationProvider.html5Mode true
 

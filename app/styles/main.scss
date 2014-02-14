@@ -89,3 +89,37 @@ body {
         border-bottom: 0;
     }
 }
+
+
+/* ============= 12307 ================ */
+#tickets-search .field {
+    width: 15%;
+    input[type='text']{
+        width: 60%;
+        padding: .6em 1.2em;
+    }
+}
+
+form#book {
+    .header span {
+        padding-left: 1em;
+    }
+    .submit.button {
+        text-align: center;
+        margin-top: 0.4em;
+
+        .button {
+            margin-right: 1em;
+            font-size: 0.9em;
+        }
+    }
+
+    i:hover {
+        color: #009FDA;
+        -webkit-transform: scale(1.2);
+    }
+
+    i.add {
+        margin-top: .5em;
+    }
+}

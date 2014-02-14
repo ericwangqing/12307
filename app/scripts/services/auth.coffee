@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('12307FullApp')
+angular.module('12307App')
   .factory 'Auth', ($location, $rootScope, Session, User, $cookieStore) ->
     
     # Get currentUser from cookie

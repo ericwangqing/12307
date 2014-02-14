@@ -1,6 +1,6 @@
-angular.module "12307FullApp" .factory 'Trains', ($resource)->
-  $resource "api/trains/"
+angular.module "12307App" .factory 'Trains', ($http)->
+  $http.get 'api/trains/'
 
-angular.module "12307FullApp" .factory 'Tickets', ($resource)->
+angular.module "12307App" .factory 'Tickets', ($resource)->
   $resource "api/tickets/"
 
