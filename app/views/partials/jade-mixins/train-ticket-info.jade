@@ -1,0 +1,7 @@
+mixin booking-train-info(train)
+  p 2014-02-21（周五）
+    | {{#{train}['车次']}}次
+    | {{#{train}['出发站/到达站']}}
+
+mixin booking-train-remain-ticket-info()
+  p 软卧（￥146.5）5张票 硬卧（￥97.5）有票 硬座（￥46.5）有票 无座（￥46.5）有票

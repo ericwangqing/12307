@@ -1,13 +1,12 @@
 'use strict'
 
-RESULTS-TABLE-HEADER-COLUMNS-NAMES = ['车次', '出发站/到达站', '出发时间/到达时间', '历时', '商务座', '特等座', '一等座', '二等座', '高级软卧', '软卧', '硬卧', '软座', '硬座', '无座', '其它', '操作']
 all-tickets = null
 trains-promise = null
 
 angular.module('12307App').controller 'TicketsCtrl', ($scope, $location, Tickets, Trains, Booking) ->
-  $ '.ui.dropdown' .dropdown!
-  $scope.table-header-names = RESULTS-TABLE-HEADER-COLUMNS-NAMES
-  Trains.then (promise)->
+  initial-drop-downs!
+  
+  Trains.then (promise)-> # 获取车次和余票数据
     trains-promise := promise
     update-tickets Tickets, $scope, ->
       $scope.condition = {}
@@ -22,6 +21,8 @@ angular.module('12307App').controller 'TicketsCtrl', ($scope, $location, Tickets
         console.log "booking ticket for: ", Booking.get-booking-train!
 
 
+initial-drop-downs = !->
+  $ '.ui.dropdown' .dropdown!
 
   # $http.get '/api/Tickets' .success (tickets)->
   #   $scope.tickets = tickets

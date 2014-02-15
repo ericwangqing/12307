@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('12307App')
-  .controller 'LoginCtrl', ($scope, Auth, $location) ->
+  .controller 'LoginCtrl', ($scope, $location, Auth) ->
     $scope.user = {}
     $scope.errors = {}
 

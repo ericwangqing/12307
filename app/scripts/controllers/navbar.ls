@@ -4,20 +4,14 @@ preload-trains-data = (Tickets)->
 
 
 angular.module('12307App')
-.controller 'NavbarCtrl', ($scope, $location, Auth, Trains) ->
-  $scope.menu = 
-    * title: 'Home'
-      link: '/'
-    * title: '12307'
-      link: '/12307'
-    * title: '车票预订'
-      link: '/tickets'
-    * title: 'Settings'
-      link: '/settings'
+.controller 'NavbarCtrl', ($scope, $location, Auth, Menu) ->
+  $scope.menu = Menu.get-menu!
+
   
   $scope.logout = ->
     Auth.logout!then ->
-      $location.path "/login"
+      $scope.menu = Menu.get-menu!
+      $location.path "/login" 
   
   $scope.isActive = (route) ->
     route is $location.path()

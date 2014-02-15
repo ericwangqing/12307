@@ -2,11 +2,11 @@ div(ng-include='\'partials/navbar.html\'')
 
 .row
   .col-sm-12
-    h1 Login
+    h1 用户登录
     p
-      | Accounts are reset on server restart from
+      | 注意：当前是开发状态，每次服务器重启，帐号都会重置。初始用户在
       code dummydata.js
-      | . Default account is
+      | 中定义. 默认 用户/密码 是
       code test@test.com
       | /
       code test
@@ -24,14 +24,14 @@ div(ng-include='\'partials/navbar.html\'')
 
       .form-group.has-error
         p.help-block(ng-show='form.email.$error.required && form.password.$error.required && submitted')
-          | Please enter your email and password.
+          | 请输入你注册用的email和密码
         p.help-block {{ errors.other }}
 
-      button.btn.btn-lg.btn-primary(type='submit')  Sign in 
+      button.btn.btn-lg.btn-primary(type='submit')  登录 
       span.clearfix
 
 .row
   .col-sm-12
     hr
-    | Not registered? 
-    a.text-center.new-account(href='/signup') Create an account.
+    | 还未注册用户？ 
+    a.text-center.new-account(href='/signup') 注册新用户

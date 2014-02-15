@@ -51,6 +51,9 @@ body {
 .jumbotron {
     text-align: center;
     border-bottom: 1px solid #e5e5e5;
+    h1 {
+        color: #009FDA;
+    }
 }
 
 .jumbotron .btn {
@@ -90,8 +93,15 @@ body {
     }
 }
 
+.footer p {
+    text-align: center;
+    i {
+        margin-left: 2.5em;
+    }
+}
 
 /* ============= 12307 ================ */
+// tickets
 #tickets-search .field {
     width: 15%;
     input[type='text']{
@@ -100,8 +110,15 @@ body {
     }
 }
 
-form#book {
+#confirmation {height: 40%;}
+
+// booking, payment
+form#book, #confirmation, #payment {
+    .red {color: red;}
+
     .header span {
+        color: rgb(240, 240, 255);
+        font-size: 0.8em;
         padding-left: 1em;
     }
     .submit.button {
@@ -122,4 +139,26 @@ form#book {
     i.add {
         margin-top: .5em;
     }
+
+    .notice {
+        background-color: #FFFBE5;
+        border-color: #FBD800;
+        .blue {
+            color: blue;
+        }
+    }
 }
+
+// payment
+#payment {
+    border-color: blue;
+    span.orange {
+        margin: 0 .5em;
+        color: orange;
+    }
+    .right {
+        text-align: right;
+    }
+}
+
+

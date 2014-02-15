@@ -16,15 +16,15 @@ angular.module '12307App', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute']
     templateUrl: 'partials/settings'
     controller: 'SettingsCtrl'
     authenticate: true
-  .when '/12307',
-    templateUrl: 'partials/12307'
-    controller: 'TicketsCtrl'
   .when '/tickets',
     templateUrl: 'partials/tickets'
     controller: 'TicketsCtrl'
   .when '/booking',
     templateUrl: 'partials/booking'
     controller: 'BookingCtrl'
+  .when '/payment',
+    templateUrl: 'partials/payment'
+    controller: 'PaymentCtrl'
   .otherwise templateUrl: '404'
 
   $locationProvider.html5Mode true

@@ -3,9 +3,9 @@
     li(ng-repeat='item in menu', ng-class='{active: isActive(item.link)}')
       a(ng-href='{{item.link}}') {{item.title}}
     li(ng-hide='currentUser', ng-class='{active: isActive("/login")}')
-      a(href='/login') Login
+      a(href='/login') 登录
     li(ng-hide='currentUser', ng-class='{active: isActive("/signup")}')
-      a(href='/signup') Sign up
+      a(href='/signup') 注册
     li(ng-show='currentUser', ng-class='{active: isActive("/logout")}')
-      a(href='', ng-click='logout()') Logout
+      a(href='', ng-click='logout()') 退出
   h3.text-muted 12307

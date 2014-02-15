@@ -1,0 +1,43 @@
+include jade-mixins/train-ticket-info
+
+mixin order-info()
+  table.ui.table.small
+    thead
+      tr
+        th(ng-repeat="name in ['序号', '姓名', '证件类型', '证件号码', '票种', '座席类别',  '票价（元）']") {{name}}
+    tbody
+      tr(ng-repeat="traveler in order.travelers")
+        td {{ $index + 1 }}
+        td {{ traveler.name }}
+        td {{ traveler.idType }}
+        td {{ traveler.id }}
+        td {{ traveler.ticketType }}
+        td {{ traveler.seatType }}
+        td {{ traveler.price }}
+  .right
+    span.orange 总票款：{{ getOrderPrice() }} 元
+
+
+#payment
+  #notice.ui.segment
+    
+    p 
+      i.icon.teal.circular.lock.inverted
+      | 席位已经锁定，请在
+      span.orange 45
+      | 分钟内完成支付，完成网上购票。支付剩余时间
+      span.orange {{remainingTime | showRemainingTime}}
+
+  h3.ui.top.attached.header.blue.inverted 订单信息
+  ui.segment.attached
+    +booking-train-info('order.train')
+    +order-info()
+  hr
+  .submit.button
+    a.ui.grey.submit.large.button(ng-click="cancalOrder()") 取消订单
+    a.ui.orange.submit.large.button(ng-click="showBanksList()") 网上支付
+
+  #banksList.ui.large.modal
+    银行列表！
+
+
