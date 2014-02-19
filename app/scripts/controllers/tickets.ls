@@ -1,5 +1,7 @@
 'use strict'
 
+# _ = require 'underscore'
+
 all-tickets = null
 trains-promise = null
 
@@ -28,13 +30,35 @@ initial-drop-downs = !->
   #   $scope.tickets = tickets
 
 combine-trains-tickets = (trains, tickets)->
-  for ticket in tickets
-    for train in trains
-      if ticket['车次'] is train['车次']
-        _.extend ticket, train
+  results = []
+  for train in trains
+    for ticket in tickets
+      results.push extend-ticket train, ticket
+  results
 
-  tickets
+extend-ticket = (train, ticket)->
+  # _.extend ticket, train if ticket['车次'] is train['车次']
+  [departure, ...passes, terminal] = train['经停站'] .map -> it['站名']
+  _train =
+     '车次': train['车次']
+     '出发站/到达站': "#{departure}/#{terminal}"
+     '经停站': [departure] ++ passes ++ [terminal]
+     '出发时间/到达时间': "#{train['经停站'][0]['出发']} ~ #{train['经停站'][train['经停站'].length - 1]['到达']}"
+     '历时': get-travel-time train
+  _.extend _train, ticket
 
+get-travel-time = (train)!->
+  [departure-hours, departure-minutes] = train['经停站'][0]['出发'].split ':' .map -> parse-int it
+  [arrival-hours, arrival-minutes] = train['经停站'][train['经停站'].length - 1]['到达'].split ':' .map -> parse-int it
+  arrival-day = parse-int train['经停站'][train['经停站'].length - 1]['第几天'] 
+  _minutes = arrival-minutes - departure-minutes
+  hours = (arrival-day - 1) * 24 + arrival-hours - departure-hours
+  if _minutes > 0 
+    minutes = _minutes
+  else 
+    minutes = 60 + minutes
+    hours -=  1 
+  "#hours:#minutes"
 
 satisfy = (ticket, condition)->
   (!condition['出发地'] or condition['出发地'] in ticket['经停站']) and (!condition['目的地'] or condition['目的地'] in ticket['经停站'])
