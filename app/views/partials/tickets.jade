@@ -1,56 +1,69 @@
 div(ng-include='\'partials/navbar.html\'')
+#tickets
+  #tickets-search.ui.form.small
+    .inline.fields
+      .field
+        label 是否往返
+        input(name='是否往返', type='text', placeholder='是/否')
 
-#tickets-search.ui.form.small
-  .inline.fields
-    .field
-      label 是否往返
-      input(name='是否往返', type='text', placeholder='是/否')
+      .field
+        label 出发地
+        input(name='出发地', type='text', ng-model="condition['出发地']")
 
-    .field
-      label 出发地
-      input(name='出发地', type='text', ng-model="condition['出发地']")
+      .field
+        label 目的地
+        input(name='目的地', type='text', ng-model="condition['目的地']")
 
-    .field
-      label 目的地
-      input(name='目的地', type='text', ng-model="condition['目的地']")
+      .field
+        label 出发日
+        input(name='出发日', type='text', placeholder='年-月-日')
 
-    .field
-      label 出发日
-      input(name='出发日', type='text', placeholder='年-月-日')
+      .field
+        label 返程日
+        input(name='返程日', type='text', placeholder='年-月-日')
 
-    .field
-      label 返程日
-      input(name='返程日', type='text', placeholder='年-月-日')
+      .field
+        label 是否学生
+        input(name='是否学生', type='text', placeholder='是/否')
 
-    .field
-      label 是否学生
-      input(name='是否学生', type='text', placeholder='是/否')
+      .ui.blue.submit.button(ng-click='query()') 查询
 
-    .ui.blue.submit.button(ng-click='query()') 查询
+  .ui.horizontal.divider 结果
 
-.ui.horizontal.divider 结果
+  table.ui.table.small
+    thead
+      tr
+        th(ng-repeat="name in ['车次', '出发站/到达站', '出发时间/到达时间', '历时', '商务座', '特等座', '一等座', '二等座', '高级软卧', '软卧', '硬卧', '软座', '硬座', '无座', '其它', '操作']") {{name}}
 
-table.ui.table.segment.small
-  thead
-    tr
-      th(ng-repeat="name in ['车次', '出发站/到达站', '出发时间/到达时间', '历时', '商务座', '特等座', '一等座', '二等座', '高级软卧', '软卧', '硬卧', '软座', '硬座', '无座', '其它', '操作']") {{name}}
+    tbody
+      tr(ng-repeat="ticket in tickets", ng-click='showTrainInfo($event)')
+        td {{ ticket['车次'] }}
+          .ui.small.modal
+            h3 {{ ticket['车次'] }}
+            .ui.three.column.grid
+              .column(ng-repeat="station in ticket['经停站']")
+                .ui.segment
+                  | {{ station['站名'] }}
+                  span.small {{ station['出发'] + ' ~ ' + station['到达'] }}
+                  
+        td {{ ticket.travelDeparture['站名'] + '/' + ticket.travelTerminal['站名'] }}
+        td {{ ticket.travelDeparture['出发'] + ' ~ ' + ticket.travelTerminal['到达'] }}
+        td {{ getTravelTime(ticket.travelDeparture, ticket.travelTerminal) }}
+        td {{ ticket['商务座'] | showRemaind }}
+        td {{ ticket['特等座'] | showRemaind }}
+        td {{ ticket['一等座'] | showRemaind }}
+        td {{ ticket['二等座'] | showRemaind }}
+        td {{ ticket['高级软卧'] | showRemaind }}
+        td {{ ticket['软卧'] | showRemaind }}
+        td {{ ticket['硬卧'] | showRemaind }}
+        td {{ ticket['软座'] | showRemaind }}
+        td {{ ticket['硬座'] | showRemaind }}
+        td {{ ticket['无座'] | showRemaind }}
+        td {{ ticket['其它'] | showRemaind }}
+        td 
+          a(href='/booking', ng-click='book($event)', value="{{ticket['车次']}}") 订票
 
-  tbody
-    tr(ng-repeat="ticket in tickets")
-      td {{ ticket['车次'] }}
-      td {{ ticket['出发站/到达站'] }}
-      td {{ ticket['出发时间/到达时间'] }}
-      td {{ ticket['历时'] }}
-      td {{ ticket['商务座'] | showRemaind }}
-      td {{ ticket['特等座'] | showRemaind }}
-      td {{ ticket['一等座'] | showRemaind }}
-      td {{ ticket['二等座'] | showRemaind }}
-      td {{ ticket['高级软卧'] | showRemaind }}
-      td {{ ticket['软卧'] | showRemaind }}
-      td {{ ticket['硬卧'] | showRemaind }}
-      td {{ ticket['软座'] | showRemaind }}
-      td {{ ticket['硬座'] | showRemaind }}
-      td {{ ticket['无座'] | showRemaind }}
-      td {{ ticket['其它'] | showRemaind }}
-      td 
-        a(href='/booking', ng-click='book($event)', value="{{ticket['车次']}}") 订票
+  .ui.small.center(ng-click='showMore()')
+    | --- 还有{{unshownTicketsNumber}}次列车
+    i.icon.double.angle.down 
+    | ---

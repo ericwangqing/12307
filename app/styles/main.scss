@@ -102,11 +102,17 @@ body {
 
 /* ============= 12307 ================ */
 // tickets
-#tickets-search .field {
-    width: 15%;
-    input[type='text']{
-        width: 60%;
-        padding: .6em 1.2em;
+#tickets {
+    .center{
+        text-align: center;
+    }
+    
+    #tickets-search .field {
+        width: 15%;
+        input[type='text']{
+            width: 60%;
+            padding: .6em 1.2em;
+        }
     }
 }
 

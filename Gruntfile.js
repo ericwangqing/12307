@@ -59,6 +59,10 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.{ls,litls,ls.md}'],
         tasks: ['newer:livescript:dist']
       },
+      livescriptServer: {
+        files: ['<%= yeoman.app %>/../server/{,*/}*.{ls,litls,ls.md}'],
+        tasks: ['newer:livescript:server']
+      },
       livescriptTest: {
         files: ['test/spec/{,*/}*.{ls,litls,ls.md}'],
         tasks: ['newer:livescript:test', 'karma']
@@ -192,6 +196,15 @@ module.exports = function (grunt) {
       options: {
         sourceMap: true,
         sourceRoot: ''
+      },
+      server: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>/../server',
+          src: '{,*/}*.ls',
+          dest: '<%= yeoman.app %>/../lib',
+          ext: '.js'
+        }]
       },
       dist: {
         files: [{
@@ -384,6 +397,7 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
+        'livescript:server',
         'livescript:dist',
         'coffee:dist',
         'compass:server'
