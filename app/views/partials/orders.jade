@@ -5,9 +5,9 @@ form#book
   h3.ui.top.attached.header.blue.inverted 列车信息
     span 以下余票信息变化迅速，仅供参考
   .ui.segment.attached
-    +booking-train-info('ticketTrain')
+    +order-train-info('ticketTrain')
     .ui.horizontal.fitted.divider 
-    +booking-train-remain-ticket-info('ticketTrain')
+    +order-train-remain-ticket-info('ticketTrain')
 
   h3.ui.top.attached.header.blue.inverted 乘客信息
     span 填写说明
@@ -62,7 +62,7 @@ form#book
   h3.ui.top.attached.header.blue.inverted 请核对以下信息
   .ui.segment.attached
     h4 车次信息
-    +booking-train-info('ticketTrain')
+    +order-train-info('ticketTrain')
     .ui.horizontal.fitted.divider 
     h4 乘客信息
     table.ui.table.small.segment.attached
@@ -80,7 +80,7 @@ form#book
           td {{ traveler.mobileNumber }}
     p.ui.blue 系统将随机为您申请座位，暂不支持自选席位。
     p 本次列车剩余 
-      +booking-train-remain-ticket-info('ticketTrain', isSimple=true)
+      +order-train-remain-ticket-info('ticketTrain', isSimple=true)
 
   .submit.button
     a.ui.grey.submit.large.button(ng-click="hideConfirmationDialog()") 修改订单

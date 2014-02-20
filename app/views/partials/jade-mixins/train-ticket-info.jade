@@ -1,4 +1,4 @@
-mixin booking-train-info(train)
+mixin order-train-info(train)
   p 2014-02-21（周五）
     | {{ #{train}['车次'] }} 次
     | {{ #{train}.travelDeparture['站名'] + '/' + #{train}.travelTerminal['站名'] }} 
@@ -6,7 +6,7 @@ mixin booking-train-info(train)
 
 
 
-mixin booking-train-remain-ticket-info(ticket, isSimple)
+mixin order-train-remain-ticket-info(ticket, isSimple)
   p 
     each seateType in ['商务座', '特等座', '一等座', '二等座', '高级软卧', '软卧', '硬卧', '软座', '硬座', '无座', '其它']
       +ticket-info(ticket, seateType, isSimple)
