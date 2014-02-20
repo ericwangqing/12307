@@ -7,7 +7,7 @@ form#book
   .ui.segment.attached
     +booking-train-info('ticketTrain')
     .ui.horizontal.fitted.divider 
-    +booking-train-remain-ticket-info()
+    +booking-train-remain-ticket-info('ticketTrain')
 
   h3.ui.top.attached.header.blue.inverted 乘客信息
     span 填写说明
@@ -21,7 +21,7 @@ form#book
         td {{ $index + 1 }}
         td
           .field
-            select(ng-model="traveler.seatType", ng-options="type for type in ['软卧', '硬卧', '软座', '硬座']")
+            select(ng-model="traveler.seatType", ng-options="type for type in getSeatType()")
         td
           .field
             select(ng-model="traveler.ticketType", ng-options="type for type in ['成人', '儿童']")
@@ -79,11 +79,9 @@ form#book
           td {{ traveler.id }}
           td {{ traveler.mobileNumber }}
     p.ui.blue 系统将随机为您申请座位，暂不支持自选席位。
-    p 本次列车剩余 硬座
-      span.red xxx
-      张，无座
-      span.red xxx
-      张。
+    p 本次列车剩余 
+      +booking-train-remain-ticket-info('ticketTrain', isSimple=true)
+
   .submit.button
     a.ui.grey.submit.large.button(ng-click="hideConfirmationDialog()") 修改订单
     a.ui.orange.submit.large.button(href='/payment', ng-click="submit()") 支付
