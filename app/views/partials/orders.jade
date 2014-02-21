@@ -1,13 +1,13 @@
 include jade-mixins/train-ticket-info
 
 div(ng-include='\'partials/navbar.html\'')
-form#book
+form#order
   h3.ui.top.attached.header.blue.inverted 列车信息
     span 以下余票信息变化迅速，仅供参考
   .ui.segment.attached
-    +order-train-info('ticketTrain')
+    +order-train-info('train')
     .ui.horizontal.fitted.divider 
-    +order-train-remain-ticket-info('ticketTrain')
+    +order-train-remain-ticket-info('train', 'form')
 
   h3.ui.top.attached.header.blue.inverted 乘客信息
     span 填写说明
@@ -40,7 +40,7 @@ form#book
         td
           i.remove.icon(ng-click='removeRow($index)')
   i.add.circular.inverted.blue.small.icon(ng-click='addRow()') 
-  span.small 新增乘客
+  span.small 新增乘客 
 
   .submit.button
     a.ui.grey.submit.large.button(href='/tickets') 返回上一步
@@ -62,7 +62,7 @@ form#book
   h3.ui.top.attached.header.blue.inverted 请核对以下信息
   .ui.segment.attached
     h4 车次信息
-    +order-train-info('ticketTrain')
+    +order-train-info('train')
     .ui.horizontal.fitted.divider 
     h4 乘客信息
     table.ui.table.small.segment.attached
@@ -80,7 +80,7 @@ form#book
           td {{ traveler.mobileNumber }}
     p.ui.blue 系统将随机为您申请座位，暂不支持自选席位。
     p 本次列车剩余 
-      +order-train-remain-ticket-info('ticketTrain', isSimple=true)
+      +order-train-remain-ticket-info('train', 'confirmation')
 
   .submit.button
     a.ui.grey.submit.large.button(ng-click="hideConfirmationDialog()") 修改订单

@@ -6,18 +6,19 @@ mixin order-train-info(train)
 
 
 
-mixin order-train-remain-ticket-info(ticket, isSimple)
+mixin order-train-remain-ticket-info(train, section)
   p 
     each seateType in ['商务座', '特等座', '一等座', '二等座', '高级软卧', '软卧', '硬卧', '软座', '硬座', '无座', '其它']
-      +ticket-info(ticket, seateType, isSimple)
+      +train-info(train, seateType, section)
 
-mixin ticket-info(ticket, seateType, isSimple)
-  if isSimple
-    span.ticket-info(ng-if!="#{ticket}['#{seateType}'] > 0") #{seateType}: 
-    span.red(ng-if!="#{ticket}['#{seateType}'] > 0") {{#{ticket}['#{seateType}']}}
-  else
-    span.ticket-info(ng-if!="#{ticket}['#{seateType}'] > 0")
-      | #{seateType}（{{getTicketPrice('#{seateType}')}}元）: {{#{ticket}['#{seateType}']|showRemainTickets}}
+mixin train-info(train, seateType, section)
+  if section == 'form'
+    span.train-info(ng-if!="#{train}['#{seateType}'] > 0")
+      | #{seateType}（{{getTicketPrice('#{seateType}')}}元）: {{#{train}['#{seateType}']|showRemainTickets}}
+  else 
+    //- section is 'conformation'
+    span.train-info(ng-if!="#{train}['#{seateType}'] > 0") #{seateType}: 
+    span.red(ng-if!="#{train}['#{seateType}'] > 0") {{#{train}['#{seateType}']}}
 
 
 
