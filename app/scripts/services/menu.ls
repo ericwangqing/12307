@@ -2,7 +2,7 @@ angular.module "12307App" .factory 'Menu', ($rootScope)->
   logged-out-menu = [title: '首页', link: '/']
   logged-in-menu = logged-out-menu.concat items =
     * title: '车票预订'
-      link: '/tickets'
+      link: '/trains'
     * title: '用户设置'
       link: '/settings'
   service =

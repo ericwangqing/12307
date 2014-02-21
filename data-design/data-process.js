@@ -34,7 +34,7 @@
     return trainLines;
   };
   extractTrains = function(trainLines){
-    var trains, i$, len$, line, tokens, res$, j$, ref$, len1$, token, key$;
+    var trains, i$, len$, line, tokens, res$, j$, ref$, len1$, token, _train, key$;
     trains = {};
     for (i$ = 0, len$ = trainLines.length; i$ < len$; ++i$) {
       line = trainLines[i$];
@@ -44,11 +44,12 @@
         res$.push(token.substr(1, token.length - 2));
       }
       tokens = res$;
-      trains[key$ = tokens[0]] || (trains[key$] = {
+      _train = {
         '车次': tokens[0],
         '类型': tokens[1],
         '经停站': []
-      });
+      };
+      trains[key$ = tokens[0]] || (trains[key$] = _train);
       trains[tokens[0]]['经停站'][parseInt(tokens[3]) - 1] = {
         '站名': tokens[2],
         '里程': tokens[7],

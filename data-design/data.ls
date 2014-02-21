@@ -57,7 +57,7 @@ train-tickets-seats =
 order =
   order-id: 'order-id-1'
   user-id: 'user-id-1'
-  booking-date-time: '2014-07-24 12:01:05'
+  order-date-time: '2014-07-24 12:01:05'
   '车次': 'G3124'
   '日期': '2014-08-01'
   '支付平台': '工行'
@@ -81,7 +81,7 @@ user =
   orders:
     order-id: 'order-id-1'
     user-id: 'user-id-1'
-    booking-date-time: '2014-07-24 12:01:05'
+    order-date-time: '2014-07-24 12:01:05'
     '车次': 'G3124'
     '日期': '2014-08-01'
     '支付平台': '工行'

@@ -16,12 +16,12 @@ angular.module '12307App', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute']
     templateUrl: 'partials/settings'
     controller: 'SettingsCtrl'
     authenticate: true
-  .when '/tickets',
-    templateUrl: 'partials/tickets'
-    controller: 'TicketsCtrl'
-  .when '/booking',
-    templateUrl: 'partials/booking'
-    controller: 'BookingCtrl'
+  .when '/trains',
+    templateUrl: 'partials/trains'
+    controller: 'TrainsCtrl'
+  .when '/order',
+    templateUrl: 'partials/order'
+    controller: 'OrderCtrl'
   .when '/payment',
     templateUrl: 'partials/payment'
     controller: 'PaymentCtrl'

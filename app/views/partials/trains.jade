@@ -61,7 +61,7 @@ div(ng-include='\'partials/navbar.html\'')
         td {{ train['无座'] | showRemaind }}
         td {{ train['其它'] | showRemaind }}
         td 
-          a(href='/orders', ng-click='book($event)', value="{{train['车次']}}") 订票
+          a(href='/order', ng-click='book($event)', value="{{train['车次']}}") 订票
 
   .ui.small.center(ng-click='showMore()')
     | --- 还有{{unshownTrainsNumber}}次列车

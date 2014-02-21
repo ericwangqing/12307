@@ -101,13 +101,13 @@ body {
 }
 
 /* ============= 12307 ================ */
-// tickets
-#tickets {
+// trains
+#trains {
     .center{
         text-align: center;
     }
-    
-    #tickets-search .field {
+
+    #trains-search .field {
         width: 15%;
         input[type='text']{
             width: 60%;
@@ -118,14 +118,18 @@ body {
 
 #confirmation {height: 40%;}
 
-// booking, payment
-form#book, #confirmation, #payment {
+// order, payment
+form#order, #confirmation, #payment {
     .red {color: red;}
 
     .header span {
         color: rgb(240, 240, 255);
         font-size: 0.8em;
         padding-left: 1em;
+    }
+
+    span.train-info {
+        margin-left: 1em;
     }
     .submit.button {
         text-align: center;
