@@ -1,11 +1,11 @@
-angular.module('12307App').controller 'OrderCtrl', ($scope, Order) ->
+angular.module('12307App').controller 'OrderCtrl', ($scope, $location, RemainTickets, Order) ->
   $scope.train = Order.get-order-train!
   $scope.travelers = [get-new-traveler!]
 
   initial-popup-title-for-submit-button!
 
   $scope.get-seat-type = ->
-    [type for type in ['商务座', '特等座', '一等座', '二等座', '高级软卧', '软卧', '硬卧', '软座', '硬座', '无座', '其它'] when $scope.train[type] > 0]
+    [type for type in ['商务座', '特等座', '一等座', '二等座', '高级软卧', '软卧', '硬卧', '软座', '硬座', '无座', '其它'] when is-available-from-departure-to-terminal $scope.train, type]
 
   $scope.get-ticket-price = -> Order.get-ticket-price!
 
@@ -17,15 +17,28 @@ angular.module('12307App').controller 'OrderCtrl', ($scope, Order) ->
 
   $scope.hide-confirmation-dialog = !-> $ '#confirmation' .modal 'hide'
 
+  $scope.get-remain-tickets = Remain-tickets.get
+
   $scope.submit = ($event)!-> 
+    $event.prevent-default!
     $scope.hide-confirmation-dialog!
-    Order.make-order $scope.travelers, (is-success)!->
+    Order.make-order $scope.travelers, (err, is-success)!->
       if !is-success
-        $event.prevent-default!
         alert "make order 失败"
-        $scope.hide-confirmation-dialog!
+      else
+        path = $location.path '/payment'
 
 
+is-available-from-departure-to-terminal = (train, type)->
+  is-available = true
+  for station in train['经停站']
+    is-passing = true if is-passing or station['站名'] is train.travel-departure['站名'] 
+    if station['站名'] is train.travel-terminal['站名'] # 终点不计入
+      is-passing = false
+      break
+    is-available = false if train.remain-tickets[type][station['站名']] < 1
+  is-available
+    
 
 
 initial-popup-title-for-submit-button = !-> $ 'a.ui.blue.submit.large.button' .popup!

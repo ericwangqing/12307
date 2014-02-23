@@ -1,0 +1,131 @@
+
+<div ng-include="'partials/navbar.html'"></div>
+<form id="order">
+  <h3 class="ui top attached header blue inverted">列车信息<span>以下余票信息变化迅速，仅供参考</span></h3>
+  <div class="ui segment attached">
+    <p>
+      2014-02-21（周五）
+      {{ train['车次'] }} 次
+      {{ train.travelDeparture['站名'] + '/' + train.travelTerminal['站名'] }} 
+      {{ train.travelDeparture['出发'] + ' ~ ' + train.travelTerminal['到达'] }}
+    </p>
+    <div class="ui horizontal fitted divider"> </div>
+    <p> <span ng-init="remainTickets = getRemainTickets(train, '商务座')" ng-if="remainTickets > 0" class="train-info">
+         
+        商务座（{{getTicketPrice('商务座')}}元）: {{remainTickets|showRemainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '特等座')" ng-if="remainTickets > 0" class="train-info">
+         
+        特等座（{{getTicketPrice('特等座')}}元）: {{remainTickets|showRemainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '一等座')" ng-if="remainTickets > 0" class="train-info">
+         
+        一等座（{{getTicketPrice('一等座')}}元）: {{remainTickets|showRemainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '二等座')" ng-if="remainTickets > 0" class="train-info">
+         
+        二等座（{{getTicketPrice('二等座')}}元）: {{remainTickets|showRemainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '高级软卧')" ng-if="remainTickets > 0" class="train-info">
+         
+        高级软卧（{{getTicketPrice('高级软卧')}}元）: {{remainTickets|showRemainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '软卧')" ng-if="remainTickets > 0" class="train-info">
+         
+        软卧（{{getTicketPrice('软卧')}}元）: {{remainTickets|showRemainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '硬卧')" ng-if="remainTickets > 0" class="train-info">
+         
+        硬卧（{{getTicketPrice('硬卧')}}元）: {{remainTickets|showRemainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '软座')" ng-if="remainTickets > 0" class="train-info">
+         
+        软座（{{getTicketPrice('软座')}}元）: {{remainTickets|showRemainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '硬座')" ng-if="remainTickets > 0" class="train-info">
+         
+        硬座（{{getTicketPrice('硬座')}}元）: {{remainTickets|showRemainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '无座')" ng-if="remainTickets > 0" class="train-info">
+         
+        无座（{{getTicketPrice('无座')}}元）: {{remainTickets|showRemainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '其它')" ng-if="remainTickets > 0" class="train-info">
+         
+        其它（{{getTicketPrice('其它')}}元）: {{remainTickets|showRemainTickets}}</span>
+    </p>
+  </div>
+  <h3 class="ui top attached header blue inverted">乘客信息<span>填写说明</span></h3>
+  <table class="ui table small segment attached">
+    <thead>
+      <tr>
+        <th ng-repeat="name in ['序号', '座席类别', '票种', '姓名', '证件类型', '证件号码', '手机号码', '删除']">{{name}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="traveler in travelers">
+        <td>{{ $index + 1 }}</td>
+        <td>
+          <div class="field">
+            <select ng-model="traveler.seatType" ng-options="type for type in getSeatType()"></select>
+          </div>
+        </td>
+        <td>
+          <div class="field">
+            <select ng-model="traveler.ticketType" ng-options="type for type in ['成人', '儿童']"></select>
+          </div>
+        </td>
+        <td>
+          <div class="field">
+            <input type="text" ng-model="traveler.name"/>
+          </div>
+        </td>
+        <td>
+          <div class="field">
+            <select ng-model="traveler.idType" ng-options="type for type in ['二代身份证', '一代身份证', '港澳通行证', '台湾通行证', '护照']"></select>
+          </div>
+        </td>
+        <td>
+          <div class="field">
+            <input type="text" ng-model="traveler.id"/>
+          </div>
+        </td>
+        <td>
+          <div class="field">
+            <input type="text" ng-model="traveler.mobileNumber"/>
+          </div>
+        </td>
+        <td><i ng-click="removeRow($index)" class="remove icon"></i></td>
+      </tr>
+    </tbody>
+  </table><i ng-click="addRow()" class="add circular inverted blue small icon"> </i><span class="small">新增乘客 </span>
+  <div class="submit button"><a href="/tickets" class="ui grey submit large button">返回上一步</a><a ng-click="showConfirmationDialog()" title="提交前请检查" class="ui blue submit large button">提交订单</a></div>
+  <div class="ui segment small notice">
+    <h5>温馨提示:</h5>
+    <ol>
+      <li>一张有效身份证件同一乘车日期同一车次只能购买一张车票。</li>
+      <li>购票时可使用的有效身份证件包括：中华人民共和国居民身份证、港澳居民来往内地通行证、台湾居民来往大陆通行证和按规定可使用的有效护照。</li>
+      <li>购买儿童票时，乘车儿童有有效身份证件的，请填写本人有效身份证件信息。乘车儿童没有有效身份证件的，应使用同行成年人的有效身份证件信息；购票时不受第一条限制，但购票后、开车前须办理换票手续方可进站乘车。</li>
+      <li> <span>购买学生票时，须在</span><span class="blue">我的常用联系人 </span><span>中登记乘车人的学生详细信息。学生票乘车时间限为每年的暑假6月1日至9月30日、寒假12月1日至3月31日。购票后、开车前，须办理换票手续方可进站乘车。换票时，新生凭录取通知书，毕业生凭学校书面证明，其他凭学生优惠卡。</span></li>
+      <li>购买残疾军人（伤残警察）优待票的，须在购票后、开车前办理换票手续方可进站乘车。换票时，不符合规定的减价优待条件，没有有效"中华人民共和国残疾军人证"或"中华人民共和国伤残人民警察证"的，不予换票，所购车票按规定办理退票手续。</li>
+    </ol>
+  </div>
+</form>
+<div id="confirmation" class="ui large modal">
+  <h3 class="ui top attached header blue inverted">请核对以下信息</h3>
+  <div class="ui segment attached">
+    <h4>车次信息</h4>
+    <p>
+      2014-02-21（周五）
+      {{ train['车次'] }} 次
+      {{ train.travelDeparture['站名'] + '/' + train.travelTerminal['站名'] }} 
+      {{ train.travelDeparture['出发'] + ' ~ ' + train.travelTerminal['到达'] }}
+    </p>
+    <div class="ui horizontal fitted divider"> </div>
+    <h4>乘客信息</h4>
+    <table class="ui table small segment attached">
+      <thead>
+        <tr>
+          <th ng-repeat="name in ['序号', '座席类别', '票种', '姓名', '证件类型', '证件号码', '手机号码']">{{name}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="traveler in travelers">
+          <td>{{ $index + 1 }}</td>
+          <td>{{ traveler.seatType }}</td>
+          <td>{{ traveler.ticketType }}</td>
+          <td>{{ traveler.name }}</td>
+          <td>{{ traveler.idType }}</td>
+          <td>{{ traveler.id }}</td>
+          <td>{{ traveler.mobileNumber }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="ui blue">系统将随机为您申请座位，暂不支持自选席位。</p>
+    <p>本次列车剩余 
+      <p> <span ng-init="remainTickets = getRemainTickets(train, '商务座')" ng-if="remainTickets > 0" class="train-info">商务座: </span><span ng-if="remainTickets > 0" class="red">{{remainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '特等座')" ng-if="remainTickets > 0" class="train-info">特等座: </span><span ng-if="remainTickets > 0" class="red">{{remainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '一等座')" ng-if="remainTickets > 0" class="train-info">一等座: </span><span ng-if="remainTickets > 0" class="red">{{remainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '二等座')" ng-if="remainTickets > 0" class="train-info">二等座: </span><span ng-if="remainTickets > 0" class="red">{{remainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '高级软卧')" ng-if="remainTickets > 0" class="train-info">高级软卧: </span><span ng-if="remainTickets > 0" class="red">{{remainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '软卧')" ng-if="remainTickets > 0" class="train-info">软卧: </span><span ng-if="remainTickets > 0" class="red">{{remainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '硬卧')" ng-if="remainTickets > 0" class="train-info">硬卧: </span><span ng-if="remainTickets > 0" class="red">{{remainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '软座')" ng-if="remainTickets > 0" class="train-info">软座: </span><span ng-if="remainTickets > 0" class="red">{{remainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '硬座')" ng-if="remainTickets > 0" class="train-info">硬座: </span><span ng-if="remainTickets > 0" class="red">{{remainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '无座')" ng-if="remainTickets > 0" class="train-info">无座: </span><span ng-if="remainTickets > 0" class="red">{{remainTickets}}</span><span ng-init="remainTickets = getRemainTickets(train, '其它')" ng-if="remainTickets > 0" class="train-info">其它: </span><span ng-if="remainTickets > 0" class="red">{{remainTickets}}</span>
+      </p>
+    </p>
+  </div>
+  <div class="submit button"><a ng-click="hideConfirmationDialog()" class="ui grey submit large button">修改订单</a><a ng-click="submit($event)" class="ui orange submit large button">支付</a></div>
+</div>

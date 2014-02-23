@@ -38,9 +38,14 @@ require('./lib/config/express')(app);
 // Routing
 require('./lib/routes')(app);
 
+// 12307 TicketsManager
+var ticketsManager = require('./lib/api/tickets-manager').getInstance()
+
 // Start server
-app.listen(config.port, function () {
-  console.log('Express server listening on port %d in %s mode', config.port, app.get('env'));
+ticketsManager.init(function(){
+  app.listen(config.port, function () {
+    console.log('Express server listening on port %d in %s mode', config.port, app.get('env'));
+  });  
 });
 
 // Expose app

@@ -109,7 +109,7 @@ module.exports = function (grunt) {
         options: {
           jshintrc: 'lib/.jshintrc'
         },
-        src: [ 'lib/{,*/}*.js']
+        src: [ 'lib/{,*/}*.js', '!lib/api/{,*/}*.js'] // LiveScript编译的部分代码会通不过编译，因此将api这里的排除在外。
       },
       all: [
       ]

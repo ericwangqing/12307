@@ -14,5 +14,5 @@ angular.module '12307App' .filter 'showRemainingTime', ->
 
 angular.module '12307App' .filter 'showRemainTickets', ->
   (number)->
-    # number = parse-int str-number
+    number = parse-int number if typeof number isnt 'number' 
     if number > THRESHOLD_REMAIN_TICKETS then '有票' else "#number 张"

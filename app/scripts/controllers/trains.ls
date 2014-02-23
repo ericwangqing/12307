@@ -5,7 +5,7 @@ satisfied-trains = null
 amount-of-trains-in-a-batch-for-showing = 50
 is-shown-trains-updating = false # 页面上的trains列表，在一次更新未完成前，不能够再更新，以免用户多次操作后，一下显示全部trains（特别是滚动）
 
-angular.module('12307App').controller 'TrainsCtrl', ($scope, $location, $timeout, Tickets, Trains, Order) ->
+angular.module('12307App').controller 'TrainsCtrl', ($scope, $location, $timeout, Tickets, Trains, Remain-tickets, Order) ->
   
   Trains.then (promise)-> # 获取车次和余票数据
     update-scope-trains Tickets, promise.data, $scope, $timeout, ->
@@ -26,8 +26,9 @@ angular.module('12307App').controller 'TrainsCtrl', ($scope, $location, $timeout
           show-next-batch-of-trains $scope, $timeout
 
       $scope.show-train-info = ($event)!->
-        $($event.target).find '.ui.modal' .modal 'show'        
+        $($event.target).find '.ui.modal' .modal 'show'   
 
+      $scope.get-remain-tickets = Remain-tickets.get
       $scope.get-travel-time = get-travel-time
 
       initial-semantic-ui-drop-downs!
@@ -47,7 +48,7 @@ update-scope-trains = (Tickets, trains, $scope, $timeout, callback)->
 
 combine-trains-tickets = (trains, tickets)->
   for train in trains
-    _.extend train, tickets[train['车次']]
+    train.remain-tickets = tickets[train['车次']]
     set-initial-travel-departure-and-terminal-as-start-and-end-of-train train
   trains
 

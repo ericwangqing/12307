@@ -15,11 +15,16 @@ angular.module "12307App" .factory 'Order', ($http)->
       headers = "Content-Type": "application/json"
       $http.post '/api/order', order-request, {headers: headers} .success (data, status, headers, config)!->
         console.log "make-order success. status: #status, data: ", data
-        order := data
-        callback true
+        if data.oid
+          order := order-request
+          order.id = data.oid
+          is-success = true
+        else
+          is-success = false
+        callback null, is-success
       .error (data, status, headers, config)!->
         console.log "make-order failed. status: #status, data: ", data
-        callback false
+        callback {status: status, data: data}
 
     get-order: -> order
 

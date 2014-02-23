@@ -29,8 +29,7 @@ extract-trains = (train-lines)->
   trains = {}
   for line in train-lines
     tokens = [token.substr 1, token.length - 2 for token in line.split /,\s/]
-    _train = {'车次': tokens.0, '类型': tokens.1, '经停站': []}
-    trains[tokens.0] ||= _train
+    trains[tokens.0] = {'车次': tokens.0, '类型': tokens.1, '经停站': []} if !trains[tokens.0] 
     trains[tokens.0]['经停站'][(parse-int tokens.3) - 1] = 
       '站名': tokens.2, '里程': tokens.7, '第几天': tokens.4, '出发': tokens.6, '到达': tokens.5
   _.values trains
