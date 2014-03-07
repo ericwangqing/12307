@@ -25,6 +25,9 @@ angular.module '12307App', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute']
   .when '/payment',
     templateUrl: 'partials/payment'
     controller: 'PaymentCtrl'
+  .when '/3rd-bank',
+    templateUrl: 'partials/bank'
+    controller: 'BankCtrl'
   .otherwise templateUrl: '404'
 
   $locationProvider.html5Mode true

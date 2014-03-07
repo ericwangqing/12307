@@ -13,9 +13,9 @@ mixin order-train-remain-ticket-info(train, section)
 
 mixin train-info(train, seateType, section)
   if section == 'form'
-    span.train-info(ng-init!="getRemainTickets(#{train}, '#{seateType}') = getRemainTickets(#{train}, '#{seateType}')", ng-if!="getRemainTickets(#{train}, '#{seateType}') > 0") 
+    span.train-info(ng-if!="getRemainTickets(#{train}, '#{seateType}') > 0") 
       | #{seateType}（{{getTicketPrice('#{seateType}')}}元）: {{getRemainTickets(#{train}, '#{seateType}')|showRemainTickets}}
   else 
     //- section is 'conformation'
-    span.train-info(ng-init!="getRemainTickets(#{train}, '#{seateType}') = getRemainTickets(#{train}, '#{seateType}')", ng-if!="getRemainTickets(#{train}, '#{seateType}') > 0") #{seateType}: 
+    span.train-info(ng-if!="getRemainTickets(#{train}, '#{seateType}') > 0") #{seateType}: 
     span.red(ng-if!="getRemainTickets(#{train}, '#{seateType}') > 0") {{getRemainTickets(#{train}, '#{seateType}')}}

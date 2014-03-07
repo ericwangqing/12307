@@ -13,7 +13,7 @@ mixin order-info()
         td {{ traveler.id }}
         td {{ traveler.ticketType }}
         td {{ traveler.seatType }}
-        td {{ traveler.price }}
+        td {{ getPrice(traveler) }}
   .right
     span.orange 总票款：{{ getOrderPrice() }} 元
 
@@ -34,10 +34,12 @@ mixin order-info()
     +order-info()
   hr
   .submit.button
-    a.ui.grey.submit.large.button(ng-click="cancalOrder()") 取消订单
+    a.ui.grey.submit.large.button(ng-click="cancelOrder()") 取消订单
     a.ui.orange.submit.large.button(ng-click="showBanksList()") 网上支付
 
   #banksList.ui.large.modal
-    | 银行列表！
-
-
+    .ui.three.column.grid
+      .column(ng-repeat="bank in ['工商银行', '建设银行', '农业银行', '中国银行', '支付宝', '财付通', '...']")
+        .ui.segment(ng-click="goBank()") 
+          i.money.icon
+          | {{ bank }}
