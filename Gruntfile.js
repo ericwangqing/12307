@@ -352,14 +352,6 @@ module.exports = function (grunt) {
 
     // Copies remaining files to places other tasks can use
     copy: {
-      trainsData: {
-        files:[{
-          expand: true,
-          cwd: 'server/config',
-          dest: 'lib/config',
-          src: ['*.sql']
-        }]
-      },
       dist: {
         files: [{
           expand: true,
@@ -471,7 +463,6 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'copy:trainsData',
       'bower-install',
       'concurrent:server',
       'autoprefixer',
