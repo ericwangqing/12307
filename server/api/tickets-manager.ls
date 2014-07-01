@@ -25,9 +25,16 @@ class Tickets-manager
     done!
 
   load-trains: (callback)!~>
-    mongoose.model('Train').find (err, @trains)!~>
+    Train = mongoose.model('Train')
+    Train.find (err, @trains)!~>
       throw err if err
-      callback!
+      if _.is-empty @trains
+        (@trains) <~! require '../config/data-process' .create
+
+        <~! Train.collection.insert @trains, {}
+        callback!
+      else
+        callback!
 
   load-remain-tickets: (done)!~> # 这里或许直接用mongodb，以便能够更加灵活地读取 
     # async.each SALE_DAYS, (day, callback)!~>

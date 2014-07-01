@@ -5,4 +5,6 @@ public
 app/bower_components
 heroku
 /views
+/data
+/lib
 dist
